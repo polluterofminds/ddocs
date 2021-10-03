@@ -1,3 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu+Mono:wght@400;700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body, h1, h2, h3, h4, h5, h6 { 
+  font-family: "Ubuntu Mono", monospace;
+}
+
+.login_button {
+  background: linear-gradient(139.69deg, #e200d9 0.7%, #ffe455 149.53%);
+  border-radius: 1.45455px;
+}
+
+.pink-gradient {
+  color: #E200D9;
+}

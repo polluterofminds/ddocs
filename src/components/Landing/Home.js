@@ -1,150 +1,190 @@
 import { useState, useEffect } from "react";
-/* This example requires Tailwind CSS v2.0+ */
-// import { Fragment } from 'react'
-// import { Popover, Transition } from '@headlessui/react'
-// import { MenuIcon, XIcon } from '@heroicons/react/outline'
-
-// const navigation = [
-//   { name: 'Product', href: '#' },
-//   { name: 'Features', href: '#' },
-//   { name: 'Marketplace', href: '#' },
-//   { name: 'Company', href: '#' },
-// ]
+import { Popover } from "@headlessui/react";
+import ddocsLogo from "../../assets/img/logo.svg";
+import gift from "../../assets/img/gift.svg";
+import wallet from "../../assets/img/wallet.svg";
+import Footer from "./Footer";
 
 export default function Home() {
   const [ethAccount, setAccount] = useState(null);
-  useEffect(() => {    
-  }, []);
+  useEffect(() => {}, []);
   const handleAuth = async () => {
-    if(ethAccount) {
-      console.log("bye?")
+    if (ethAccount) {
       setAccount(null);
     } else {
-      const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+      const accounts = await window.ethereum.request({
+        method: "eth_requestAccounts",
+      });
       const account = accounts[0];
       setAccount(account);
-    }    
-  }
-  console.log(ethAccount);
-  return (
-    <div className="h-screen relative bg-white overflow-hidden">      
+    }
+  };
 
-      <div className="relative pt-6 pb-16 sm:pb-24">
-        {/* <Popover>
+  return (
+    <div className="min-h-screen flex flex-col justify-between relative bg-white overflow-hidden">
+      <div className="relative pt-6">
+        <Popover>
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <nav className="relative flex items-center justify-between sm:h-10 md:justify-center" aria-label="Global">
-              <div className="flex items-center flex-1 md:absolute md:inset-y-0 md:left-0">
-                <div className="flex items-center justify-between w-full md:w-auto">
-                  <a href="#">
-                    <span className="sr-only">Workflow</span>
-                    <img
-                      className="h-8 w-auto sm:h-10"
-                      src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
-                      alt=""
-                    />
-                  </a>
-                  <div className="-mr-2 flex items-center md:hidden">
-                    <Popover.Button className="bg-gray-50 rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
-                      <span className="sr-only">Open main menu</span>
-                      <MenuIcon className="h-6 w-6" aria-hidden="true" />
-                    </Popover.Button>
-                  </div>
-                </div>
-              </div>
-              <div className="hidden md:flex md:space-x-10">
-                {navigation.map((item) => (
-                  <a key={item.name} href={item.href} className="font-medium text-gray-500 hover:text-gray-900">
-                    {item.name}
-                  </a>
-                ))}
-              </div>
-              <div className="hidden md:absolute md:flex md:items-center md:justify-end md:inset-y-0 md:right-0">
-                <span className="inline-flex rounded-md shadow">
-                  <a
-                    href="#"
-                    className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-gray-50"
+            <nav
+              className="relative flex items-center justify-between sm:h-10 md:justify-center"
+              aria-label="Global"
+            >
+              <div className="flex items-center flex-1 md:absolute md:inset-y-0 md:left-0"></div>
+              <div className="hidden md:flex md:space-x-10"></div>
+              <div className="h-14 md:absolute md:flex md:items-center md:justify-end md:inset-y-0 md:right-0 login_button font-mono">
+                <span className="inline-flex">
+                  <button
+                    onClick={handleAuth}
+                    className="login-button inline-flex items-center px-4 py-2 text-base text-white font-bold"
                   >
-                    Log in
-                  </a>
+                    {ethAccount ? "Disconnect Metamask" : "Login with Metamask"}
+                  </button>
                 </span>
               </div>
             </nav>
           </div>
+        </Popover>
 
-          <Transition
-            as={Fragment}
-            enter="duration-150 ease-out"
-            enterFrom="opacity-0 scale-95"
-            enterTo="opacity-100 scale-100"
-            leave="duration-100 ease-in"
-            leaveFrom="opacity-100 scale-100"
-            leaveTo="opacity-0 scale-95"
-          >
-            <Popover.Panel
-              focus
-              className="absolute z-10 top-0 inset-x-0 p-2 transition transform origin-top-right md:hidden"
-            >
-              <div className="rounded-lg shadow-md bg-white ring-1 ring-black ring-opacity-5 overflow-hidden">
-                <div className="px-5 pt-4 flex items-center justify-between">
-                  <div>
-                    <img
-                      className="h-8 w-auto"
-                      src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
-                      alt=""
-                    />
-                  </div>
-                  <div className="-mr-2">
-                    <Popover.Button className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
-                      <span className="sr-only">Close menu</span>
-                      <XIcon className="h-6 w-6" aria-hidden="true" />
-                    </Popover.Button>
-                  </div>
-                </div>
-                <div className="px-2 pt-2 pb-3">
-                  {navigation.map((item) => (
-                    <a
-                      key={item.name}
-                      href={item.href}
-                      className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
-                    >
-                      {item.name}
-                    </a>
-                  ))}
-                </div>
-                <a
-                  href="#"
-                  className="block w-full px-5 py-3 text-center font-medium text-indigo-600 bg-gray-50 hover:bg-gray-100"
-                >
-                  Log in
-                </a>
-              </div>
-            </Popover.Panel>
-          </Transition>
-        </Popover> */}
-
-        <main className="pt-36 flex justify-center mt-16 mx-auto max-w-7xl px-4 sm:mt-24">
+        <main className="flex justify-center mt-16 mx-auto max-w-7xl px-4 sm:mt-24">
           <div className="text-center">
-            <h1 className="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
-              <span className="block xl:inline">Decentralized and encrypted documents</span>{' '}
-              <span className="block text-indigo-600 xl:inline">for your most important work</span>
-            </h1>
-            <p className="mt-3 max-w-md mx-auto text-base text-gray-500 sm:text-lg md:mt-5 md:text-xl md:max-w-3xl">
-              Finally an alternative to Google Docs built for your DAO, your web3 project, your crypto life.
+            <img className="w-24 m-auto" src={ddocsLogo} alt="DDocs Logo" />
+            <p className="text-3xl font-bold mb-28 mt-2">
+              dDocs
+              <span className="text-transparent bg-clip-text bg-gradient-to-br from-primaryPink to-secondaryPink">
+                .
+              </span>
+              app
             </p>
-            <div className="mt-5 max-w-md mx-auto sm:flex sm:justify-center md:mt-8">
-              <div className="rounded-md shadow">
-                <button                 
-                  onClick={handleAuth}
-                  className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10"
-                >
-                  {ethAccount ? "Disconnect Wallet" : "Connect Metamask"}
-                </button>                
-              </div>                            
+            <div className="max-w-5xl m-auto">
+              <h1 className="text-4xl tracking-tight font-bold text-gray-900 sm:text-5xl md:text-7xl">
+                Web3-Native, Decentralized, Encrypted Docs for your{" "}
+                <span className="text-transparent bg-clip-text bg-gradient-to-br from-primaryPink to-secondaryPink">
+                  DAO
+                </span>
+              </h1>
             </div>
-            { ethAccount && <p className="mt-2 text-gray-500 sm:text-lg md:mt-5 md:text-sm">Your wallet address is <code>{ethAccount}</code></p>}            
+
+            <div className="mt-5 max-w-5xl mx-auto sm:flex sm:justify-between md:mt-8 justify-between align-center text-center">
+              <div className="text-center p-10">
+                <img className="h-20 m-auto" src={gift} alt="gift-logo" />
+                <h2 className="text-6xl mt-8">Beautiful Docs</h2>
+                <div className="text-left max-w-sm m-auto">
+                  <p className="mt-6 text-xl">
+                    Elegant, simplified browser-based text editor that supports
+                    editing <strong>in rich-text and markdown.</strong>
+                  </p>
+
+                  <p className="mt-6 text-xl">
+                    <strong>Live collaboration</strong> with up to{" "}
+                    <strong>50 active writers and commenters</strong>.
+                  </p>
+
+                  <p className="mt-6 text-xl">
+                    Share <strong>publicly</strong> or within your{" "}
+                    <strong>organization</strong>, with easily managed read,
+                    write, and comment access.
+                  </p>
+                </div>
+              </div>
+              <div className="text-center p-10">
+                <img className="h-20 m-auto" src={wallet} alt="gift-logo" />
+                <h2 className="text-6xl mt-8">Web3-Native</h2>
+                <div className="text-left max-w-sm m-auto">
+                  <p className="mt-6 text-xl">
+                    Stored on IPFS on the Matic network. Encrypted to protect
+                    your organization’s most important documents.
+                  </p>
+
+                  <p className="mt-6 text-xl">
+                    Gate access to documents, folders, and entire organizations
+                    by:
+                    <ul className="list-disc mt-2 pl-4">
+                      <li>Wallet Address</li>
+                      <li>ENS Name</li>
+                      <li>Token Holder</li>
+                      <li>NFT-Minter contract address</li>
+                    </ul>
+                  </p>
+
+                  <p className="mt-6 text-xl">
+                    Take meeting notes and propose Snap Votes directly in
+                    meeting notes.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="mt-20">
+              <p className="text-xl">
+                <span className="text-transparent bg-clip-text bg-gradient-to-br from-primaryPink to-secondaryPink">
+                  <u>
+                    <a
+                      href="https://discord.gg/cwfnm4PZDJ"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      JOIN OUR DISCORD
+                    </a>
+                  </u>
+                </span>{" "}
+                for early access or{" "}
+                <span className="text-transparent bg-clip-text bg-gradient-to-br from-primaryPink to-secondaryPink">
+                  FOLLOW US ON TWITTER
+                </span>{" "}
+                for updates.
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-3 md:max-w-6xl m-auto max-w-xl">
+                <div className="p-2">
+                  <blockquote className="twitter-tweet">
+                    <p lang="en" dir="ltr">
+                      Opportunity: an open-source and IPFS-friendly version of
+                      Google Docs.
+                      <br />
+                      <br />
+                      Core assumptions:
+                      <br />- all users have an Ethereum address / privkey
+                      <br />- collaborative editing but data is encrypted when
+                      stored in cloud (i.e. smart client / dumb server)
+                    </p>
+                    &mdash; Dan Romero (@dwr){" "}
+                    <a href="https://twitter.com/dwr/status/1422677624095088640?ref_src=twsrc%5Etfw">
+                      August 3, 2021
+                    </a>
+                  </blockquote>
+                </div>
+                <div className="p-2">
+                  <blockquote className="twitter-tweet">
+                    <p lang="en" dir="ltr">
+                      I have literally been kicking around the idea of building
+                      this. Not reviving my old app Graphite, per se, but taking
+                      the learnings and doubling down on IPFS and Eth.
+                    </p>
+                    &mdash; Justin Hunter (@polluterofminds){" "}
+                    <a href="https://twitter.com/polluterofminds/status/1422746878458966018?ref_src=twsrc%5Etfw">
+                      August 4, 2021
+                    </a>
+                  </blockquote>
+                </div>
+                <div className="p-2">
+                  <blockquote className="twitter-tweet">
+                    <p lang="en" dir="ltr">
+                      Screw it, alpha leak lol marketing page shipping this
+                      weekend
+                      <a href="https://t.co/JINerndcWP">
+                        https://t.co/JINerndcWP
+                      </a>
+                    </p>
+                    &mdash; Zach 🦇🔊 (@zherring){" "}
+                    <a href="https://twitter.com/zherring/status/1443721675401412609?ref_src=twsrc%5Etfw">
+                      September 30, 2021
+                    </a>
+                  </blockquote>
+                </div>
+              </div>
+            </div>
           </div>
         </main>
+        <Footer />
       </div>
     </div>
-  )
+  );
 }
