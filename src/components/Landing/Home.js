@@ -9,16 +9,16 @@ import useInterval from "../hooks/useInterval";
 export default function Home() {
   const [ethAccount, setAccount] = useState(null);
   const [options] = useState(["DAO", "Community", "Work", "Life"]);
-  const [optionsIndex, setOptionsIndex] = useState(0);  
+  const [optionsIndex, setOptionsIndex] = useState(0);
   useInterval(() => {
-    if(optionsIndex < 3) {
+    if (optionsIndex < 3) {
       const newNumber = optionsIndex + 1;
       setOptionsIndex(newNumber);
     } else {
       setOptionsIndex(0);
     }
   }, 2000);
-  console.log(optionsIndex);
+
   const handleAuth = async () => {
     if (ethAccount) {
       setAccount(null);
@@ -139,7 +139,15 @@ export default function Home() {
                 </span>{" "}
                 for early access or{" "}
                 <span className="text-transparent bg-clip-text bg-gradient-to-br from-primaryPink to-secondaryPink">
-                  FOLLOW US ON TWITTER
+                  <u>
+                    <a
+                      href="https://twitter.com/search?q=ddocs&src=typed_query"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      FOLLOW US ON TWITTER
+                    </a>
+                  </u>
                 </span>{" "}
                 for updates.
               </p>
