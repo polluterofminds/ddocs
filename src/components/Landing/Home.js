@@ -1,13 +1,24 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Popover } from "@headlessui/react";
 import ddocsLogo from "../../assets/img/logo.svg";
 import gift from "../../assets/img/gift.svg";
 import wallet from "../../assets/img/wallet.svg";
 import Footer from "./Footer";
+import useInterval from "../hooks/useInterval";
 
 export default function Home() {
   const [ethAccount, setAccount] = useState(null);
-  useEffect(() => {}, []);
+  const [options] = useState(["DAO", "Community", "Work", "Life"]);
+  const [optionsIndex, setOptionsIndex] = useState(0);  
+  useInterval(() => {
+    if(optionsIndex < 3) {
+      const newNumber = optionsIndex + 1;
+      setOptionsIndex(newNumber);
+    } else {
+      setOptionsIndex(0);
+    }
+  }, 2000);
+  console.log(optionsIndex);
   const handleAuth = async () => {
     if (ethAccount) {
       setAccount(null);
@@ -59,7 +70,7 @@ export default function Home() {
               <h1 className="text-4xl tracking-tight font-bold text-gray-900 sm:text-5xl md:text-7xl">
                 Web3-Native, Decentralized, Encrypted Docs for your{" "}
                 <span className="text-transparent bg-clip-text bg-gradient-to-br from-primaryPink to-secondaryPink">
-                  DAO
+                  {options[optionsIndex]}
                 </span>
               </h1>
             </div>
